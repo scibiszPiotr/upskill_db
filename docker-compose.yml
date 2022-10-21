@@ -5,23 +5,15 @@ services:
         build:
             context: ./
             dockerfile: Dockerfile
-        image: db
+        image: docker.io/library/pscibisz-db-web
         container_name: db-app
         restart: unless-stopped
-        volumes:
-            - ./:/var/www/html
-        networks:
-            - net-db
-
-    nginx_app:
-        image: nginx:1.17-alpine
-        container_name: nginx
-        restart: unless-stopped
+        environment:
+            WEBROOT: '/var/www/html/public'
         ports:
             - 8000:80
-        volumes:
-            - ./:/var/www/html
-            - ./nginx:/etc/nginx/conf.d
+#        volumes:
+#            - ./:/var/www/html
         networks:
             - net-db
 
@@ -67,6 +59,9 @@ services:
             - ./../s3-app/nginx:/etc/nginx/conf.d
         networks:
             - net-db
+
+    test:
+        image: public.ecr.aws/ablachowicz-public-ecr-reg/pscibisz-db-nginx:latest
 
 networks:
     net-db:

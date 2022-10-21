@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/db/', function () {
     return view('welcome');
 });
 
-Route::resource('picture', '\App\Http\Controllers\PictureController');
+Route::resource('/db/picture', '\App\Http\Controllers\PictureController');
